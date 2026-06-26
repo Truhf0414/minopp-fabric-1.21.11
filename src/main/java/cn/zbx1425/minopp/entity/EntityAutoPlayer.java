@@ -109,24 +109,22 @@ public class EntityAutoPlayer extends LivingEntity {
             boolean tableFound = false;
             for (int dx = -2; dx <= 2; dx++) {
                 for (int dz = -2; dz <= 2; dz++) {
-                    for (int dy = -1; dy <= 1; dy++) {
-                        BlockPos tobeTablePos = blockPosition().offset(dx, 0, dz);
-                        BlockState tobeTableState = level().getBlockState(tobeTablePos);
-                        if (tobeTableState.is(Mino.BLOCK_MINO_TABLE.get())) {
-                            BlockPos corePos = BlockMinoTable.getCore(tobeTableState, tobeTablePos);
-                            BlockEntity blockEntity = level().getBlockEntity(corePos);
-                            if (blockEntity instanceof BlockEntityMinoTable tableEntity) {
-                                if (tableEntity.game != null) continue;
-                                String playerName = hasCustomName() ? getCustomName().getString() : "MinoBot #" + new Random().nextInt(100, 1000);
-                                cardPlayer = new CardPlayer(uuid, playerName);
-                                tableEntity.joinPlayerToTable(cardPlayer, position());
-                                tablePos = corePos;
-                                tableFound = true;
-                                ItemStack handStack = new ItemStack(Mino.ITEM_HAND_CARDS.get());
-                                handStack.set(Mino.DATA_COMPONENT_TYPE_CARD_GAME_BINDING.get(), new ItemHandCards.CardGameBindingComponent(tablePos, cardPlayer.uuid));
-                                entityData.set(HAND_STACK, handStack);
-                                break;
-                            }
+                    BlockPos tobeTablePos = blockPosition().offset(dx, 0, dz);
+                    BlockState tobeTableState = level().getBlockState(tobeTablePos);
+                    if (tobeTableState.is(Mino.BLOCK_MINO_TABLE.get())) {
+                        BlockPos corePos = BlockMinoTable.getCore(tobeTableState, tobeTablePos);
+                        BlockEntity blockEntity = level().getBlockEntity(corePos);
+                        if (blockEntity instanceof BlockEntityMinoTable tableEntity) {
+                            if (tableEntity.game != null) continue;
+                            String playerName = hasCustomName() ? getCustomName().getString() : "MinoBot #" + new Random().nextInt(100, 1000);
+                            cardPlayer = new CardPlayer(uuid, playerName);
+                            tableEntity.joinPlayerToTable(cardPlayer, position());
+                            tablePos = corePos;
+                            tableFound = true;
+                            ItemStack handStack = new ItemStack(Mino.ITEM_HAND_CARDS.get());
+                            handStack.set(Mino.DATA_COMPONENT_TYPE_CARD_GAME_BINDING.get(), new ItemHandCards.CardGameBindingComponent(tablePos, cardPlayer.uuid));
+                            entityData.set(HAND_STACK, handStack);
+                            break;
                         }
                     }
                     if (tableFound) break;
