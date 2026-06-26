@@ -8,9 +8,7 @@ import cn.zbx1425.minopp.gui.AutoPlayerScreen;
 import cn.zbx1425.minopp.item.ItemHandCards;
 import cn.zbx1425.minopp.network.S2CAutoPlayerScreenPacket;
 import cn.zbx1425.minopp.platform.multiver.PlayerShim;
-import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.client.Minecraft;
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
@@ -323,8 +321,7 @@ public class EntityAutoPlayer extends LivingEntity {
 
         Component component = this.getCustomName();
         if (component != null) {
-            output.putString("CustomName", ComponentSerialization.CODEC
-                .encodeStart(JsonOps.INSTANCE, component).getOrThrow().toString());
+            output.store("CustomName", ComponentSerialization.CODEC, component);
         }
     }
 
@@ -334,13 +331,7 @@ public class EntityAutoPlayer extends LivingEntity {
         setSkin(input.getStringOr("Skin", ""));
         autoPlayer.useConfigNbt(input.childOrEmpty("AI"));
 
-        input.getString("CustomName").ifPresent(customName -> {
-            try {
-                this.setCustomName(ComponentSerialization.CODEC.parse(
-                    JsonOps.INSTANCE, JsonParser.parseString(input.getStringOr("CustomName", "")))
-                    .getOrThrow());
-            } catch (Exception ignored) { }
-        });
+        input.read("CustomName", ComponentSerialization.CODEC).ifPresent(this::setCustomName);
     }
 
     private static class Client {

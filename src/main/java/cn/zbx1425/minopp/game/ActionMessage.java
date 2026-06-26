@@ -1,8 +1,6 @@
 package cn.zbx1425.minopp.game;
 
 import cn.zbx1425.minopp.platform.DummyLookupProvider;
-import com.google.gson.JsonParser;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 
@@ -16,16 +14,13 @@ public record ActionMessage(Type type, Component message) {
     public ActionMessage(ValueInput input) {
         this(
             input.getString("type").map(Type::valueOf).orElse(Type.STATE),
-            // This is ugly but we did it in the first place, so for backward compatibility...
-            ComponentSerialization.CODEC.parse(JsonOps.INSTANCE,
-                JsonParser.parseString(input.getStringOr("message", ""))).getOrThrow()
+            input.read("message", ComponentSerialization.CODEC).orElse(Component.empty())
         );
     }
 
     public void nbtWriteTo(ValueOutput output) {
         output.putString("type", type.name());
-        output.putString("message", ComponentSerialization.CODEC.encodeStart(JsonOps.INSTANCE, message)
-            .getOrThrow().toString());
+        output.store("message", ComponentSerialization.CODEC, message);
     }
 
     public enum Type {
