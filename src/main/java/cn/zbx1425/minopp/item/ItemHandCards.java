@@ -29,9 +29,6 @@ import net.minecraft.world.item.component.TooltipDisplay;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 
-//? if <26.1
-//import net.minecraft.world.InteractionResultHolder;
-//? if >=26.1
 import net.minecraft.world.InteractionResult;
 
 import java.util.List;
@@ -46,24 +43,17 @@ public class ItemHandCards extends GroupedItem {
     }
 
     @Override
-    //~ if >=26.1 'InteractionResultHolder<ItemStack>' -> 'InteractionResult'
     public InteractionResult use(Level level, Player player, InteractionHand usedHand) {
         if (usedHand != InteractionHand.MAIN_HAND) return super.use(level, player, usedHand);
         BlockPos gamePos = getHandCardGamePos(player);
         if (gamePos != null && level.getBlockEntity(gamePos) instanceof BlockEntityMinoTable tableEntity) {
             if (tableEntity.game != null && tableEntity.getPlayersList().stream().anyMatch(p -> p.uuid.equals(PlayerShim.getGameProfileId(player)))) {
                 // Card is valid
-                //? if <26.1
-                //return InteractionResultHolder.fail(player.getItemInHand(usedHand));
-                //? if >=26.1
                 return InteractionResult.FAIL;
             }
         }
         // Game table not found, card no longer usable
         player.setItemInHand(usedHand, ItemStack.EMPTY);
-        //? if <26.1
-        //return InteractionResultHolder.consume(player.getItemInHand(usedHand));
-        //? if >=26.1
         return InteractionResult.CONSUME;
     }
 
@@ -90,22 +80,14 @@ public class ItemHandCards extends GroupedItem {
     }
 
     @Override
-    //? if <26.1
-    //public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-    //? if >=26.1
     public void appendHoverText(final ItemStack stack, final TooltipContext context, final TooltipDisplay display, final Consumer<Component> builder, final TooltipFlag tooltipFlag) {
         CardGameBindingComponent binding = stack.get(Mino.DATA_COMPONENT_TYPE_CARD_GAME_BINDING.get());
-        //~ if >=26.1 'tooltipComponents.add(' -> 'builder.accept(' {
         if (binding != null) {
             builder.accept(Component.literal("Table: " + binding.tablePos().toShortString()));
             if (!Client.isClientPlayerOwnerOfHandCard(binding)) { // TODO this doesn't seem good, some mod might try to call it from server
                 builder.accept(Component.literal("NOT YOUR CARD!").withStyle(ChatFormatting.RED));
             }
         }
-        //~ }
-        //? if <26.1
-        //super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        //? if >=26.1
         super.appendHoverText(stack, context, display, builder, tooltipFlag);
     }
 

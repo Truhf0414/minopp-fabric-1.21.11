@@ -41,12 +41,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-//? if >=26.1 {
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-//? } else {
-/*import cn.zbx1425.minopp.platform.multiver.ValueOutput;
- *///? }
 
 import java.util.*;
 
@@ -70,14 +66,8 @@ public class BlockEntityMinoTable extends BlockEntity {
     }
 
     @Override
-    //? if <26.1 {
-    /*protected void saveAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.saveAdditional(compoundTag, provider);
-        ValueOutput output = new ValueOutput(compoundTag);
-    *///? } else if >=26.1 {
     protected void saveAdditional(final ValueOutput output) {
         super.saveAdditional(output);
-    //? }
         ValueOutput playerOutput = output.child("players");
         for (Map.Entry<Direction, CardPlayer> entry : players.entrySet()) {
             if (entry.getValue() != null) {
@@ -93,13 +83,8 @@ public class BlockEntityMinoTable extends BlockEntity {
     }
 
     @Override
-    //? if <26.1 {
-    /*protected void loadAdditional(CompoundTag compoundTag, HolderLookup.Provider provider) {
-        super.loadAdditional(compoundTag, provider);
-    *///? } else if >= 26.1 {
     protected void loadAdditional(final ValueInput input) {
         super.loadAdditional(input);
-    //? }
         ValueInput playersTag = input.childOrEmpty("players");
         for (Direction direction : PLAYER_ORDER) {
             players.put(direction,
@@ -176,12 +161,9 @@ public class BlockEntityMinoTable extends BlockEntity {
                         ItemHandCards.CardGameBindingComponent newBinding =
                                 new ItemHandCards.CardGameBindingComponent(getBlockPos(), cardPlayer.uuid);
                         handCard.set(Mino.DATA_COMPONENT_TYPE_CARD_GAME_BINDING.get(), newBinding);
-                        //~ if >=26.1 '.selected' -> '.getSelectedSlot()'
                         if (Inventory.isHotbarSlot(mcPlayer.getInventory().getSelectedSlot())
-                            //~ if >=26.1 '.getSelected()' -> '.getSelectedItem()'
                             && mcPlayer.getInventory().getSelectedItem().isEmpty()) {
                             // If the player has an empty hand slot, put the card there
-                            //~ if >=26.1 '.selected' -> '.getSelectedSlot()'
                             mcPlayer.getInventory().setItem(mcPlayer.getInventory().getSelectedSlot(), handCard);
                             playerFound = true;
                         } else {

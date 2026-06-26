@@ -20,16 +20,8 @@ public class ItemCoupon extends GroupedItem {
     }
 
     @Override
-    //? if <26.1
-    //public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-    //? if >=26.1
     public void appendHoverText(final ItemStack stack, final TooltipContext context, final TooltipDisplay display, final Consumer<Component> builder, final TooltipFlag tooltipFlag) {
-        //~ if >=26.1 'tooltipComponents.add(' -> 'builder.accept(' {
         builder.accept(Component.translatable("item.minopp.coupon.description"));
-        //~ }
-        //? if <26.1
-        //super.appendHoverText(stack, context, tooltipComponents, tooltipFlag);
-        //? if >=26.1
         super.appendHoverText(stack, context, display, builder, tooltipFlag);
     }
 }

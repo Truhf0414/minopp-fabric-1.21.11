@@ -44,12 +44,8 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
 import net.minecraft.server.level.ServerPlayer;
 
-//? if >=26.1 {
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-//? } else {
-/*import cn.zbx1425.minopp.platform.multiver.ValueOutput;
- *///? }
 
 import java.util.List;
 import java.util.Optional;
@@ -88,21 +84,13 @@ public class EntityAutoPlayer extends LivingEntity {
                 clientSkinGameProfileValidFor = entityData.get(SKIN);
                 try {
                     UUID skinAsUUID = UUID.fromString(clientSkinGameProfileValidFor);
-                    //? if <26.1 {
-                    /*clientSkinGameProfile = SkullBlockEntity.fetchGameProfile(skinAsUUID);
-                    *///? } else {
                     clientSkinGameProfile = ResolvableProfile.createUnresolved(skinAsUUID)
                         .resolveProfile(Minecraft.getInstance().services().profileResolver())
                         .thenApply(Optional::of);
-                    //? }
                 } catch (IllegalArgumentException e) {
-                    //? if <26.1 {
-                    /*clientSkinGameProfile = SkullBlockEntity.fetchGameProfile(clientSkinGameProfileValidFor);
-                    *///? } else {
                     clientSkinGameProfile = ResolvableProfile.createUnresolved(clientSkinGameProfileValidFor)
                         .resolveProfile(Minecraft.getInstance().services().profileResolver())
                         .thenApply(Optional::of);
-                    //? }
                 }
             }
             return;
@@ -232,18 +220,6 @@ public class EntityAutoPlayer extends LivingEntity {
         return super.interact(player, hand);
     }
 
-    //? if <26.1 {
-    /*@Override
-    public @NotNull Iterable<ItemStack> getArmorSlots() {
-        return armorItems;
-    }
-
-    @Override
-    public @NotNull Iterable<ItemStack> getHandSlots() {
-        return List.of(entityData.get(HAND_STACK), ItemStack.EMPTY);
-    }
-    *///? }
-
     @Override
     public @NotNull ItemStack getItemBySlot(EquipmentSlot slot) {
         if (slot == EquipmentSlot.MAINHAND) {
@@ -267,13 +243,6 @@ public class EntityAutoPlayer extends LivingEntity {
     public boolean isInvulnerable() {
         return true;
     }
-
-    //? if <26.1 {
-    /*@Override
-    public boolean isInvulnerableTo(DamageSource source) {
-        return isRemoved() || !source.is(DamageTypeTags.BYPASSES_INVULNERABILITY);
-    }
-    *///? }
 
     @Override
     protected void addAdditionalSaveData(final ValueOutput output) {
