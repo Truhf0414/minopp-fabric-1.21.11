@@ -3,15 +3,10 @@ package cn.zbx1425.minopp;
 import cn.zbx1425.minopp.block.BlockEntityMinoTable;
 import cn.zbx1425.minopp.block.BlockMinoTable;
 import cn.zbx1425.minopp.game.ActionReport;
-import cn.zbx1425.minopp.game.CardGame;
-import cn.zbx1425.minopp.game.CardPlayer;
-import cn.zbx1425.minopp.item.ItemHandCards;
 import cn.zbx1425.minopp.platform.multiver.PlayerShim;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -24,7 +19,6 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.BiConsumer;
 
 public class MinoCommand {
 
@@ -83,22 +77,5 @@ public class MinoCommand {
                             }
                         })))
         );
-    }
-
-    private static final SimpleCommandExceptionType ERROR_NO_GAME = new SimpleCommandExceptionType(Component.translatable("game.minopp.play.no_game"));
-
-
-    private static void withPlayerAndGame(CommandContext<CommandSourceStack> context, BiConsumer<CardGame, CardPlayer> action) throws CommandSyntaxException {
-        BlockPos gamePos = ItemHandCards.getHandCardGamePos(context.getSource().getPlayerOrException());
-        if (gamePos == null) throw ERROR_NO_GAME.create();
-        if (context.getSource().getLevel().getBlockEntity(gamePos) instanceof BlockEntityMinoTable tableEntity) {
-            if (tableEntity.game == null) throw ERROR_NO_GAME.create();
-            CardPlayer cardPlayer = tableEntity.game.deAmputate(ItemHandCards.getCardPlayer(context.getSource().getPlayerOrException()));
-            if (cardPlayer == null) throw ERROR_NO_GAME.create();
-            action.accept(tableEntity.game, cardPlayer);
-            tableEntity.sync();
-        } else {
-            throw ERROR_NO_GAME.create();
-        }
     }
 }

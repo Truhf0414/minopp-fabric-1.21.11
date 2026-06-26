@@ -1,14 +1,10 @@
 package cn.zbx1425.minopp.platform;
 
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.Identifier;
 //? if fabric {
 import cn.zbx1425.minopp.fabric.MinoFabric;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientEntityEvents;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 //? if <26.1
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 // if >=26.1
@@ -34,18 +30,6 @@ public class ClientPlatform {
 
     public static void registerNetworkReceiver(Identifier resourceLocation, Consumer<FriendlyByteBuf> consumer) {
         MinoFabric.PACKET_REGISTRY.registerNetworkReceiverS2C(resourceLocation, consumer);
-    }
-
-    public static void registerPlayerJoinEvent(Consumer<LocalPlayer> consumer) {
-        ClientEntityEvents.ENTITY_LOAD.register((entity, clientWorld) -> {
-            if (entity == Minecraft.getInstance().player) {
-                consumer.accept((LocalPlayer) entity);
-            }
-        });
-    }
-
-    public static void registerTickEvent(Consumer<Minecraft> consumer) {
-        ClientTickEvents.START_CLIENT_TICK.register(consumer::accept);
     }
 
     public static void sendPacketToServer(Identifier id, FriendlyByteBuf packet) {

@@ -17,25 +17,15 @@ import net.minecraft.world.level.block.state.BlockState;
 
 //? if fabric {
 import cn.zbx1425.minopp.fabric.MinoFabric;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
-import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 //? } else if neoforge {
 /*import cn.zbx1425.minopp.neoforge.MinoNeoForge;
 *///? }
 
-import java.util.function.Consumer;
-
 public class ServerPlatform {
 
     //? if fabric {
 
-
-    public static boolean isFabric() {
-        return true;
-    }
 
     public static <T extends BlockEntity> BlockEntityType<T> createBlockEntityType(ServerPlatform.BlockEntitySupplier<T> supplier, Block block) {
         //? if <26.1
@@ -50,30 +40,6 @@ public class ServerPlatform {
 
     public static void registerNetworkReceiver(Identifier resourceLocation, ServerPlatform.C2SPacketHandler packetCallback) {
         MinoFabric.PACKET_REGISTRY.registerNetworkReceiverC2S(resourceLocation, packetCallback);
-    }
-
-    public static void registerPlayerJoinEvent(Consumer<ServerPlayer> consumer) {
-        ServerEntityEvents.ENTITY_LOAD.register((entity, serverWorld) -> {
-            if (entity instanceof ServerPlayer) {
-                consumer.accept((ServerPlayer) entity);
-            }
-        });
-    }
-
-    public static void registerPlayerQuitEvent(Consumer<ServerPlayer> consumer) {
-        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> consumer.accept(handler.player));
-    }
-
-    public static void registerServerStartingEvent(Consumer<MinecraftServer> consumer) {
-        ServerLifecycleEvents.SERVER_STARTING.register(consumer::accept);
-    }
-
-    public static void registerServerStoppingEvent(Consumer<MinecraftServer> consumer) {
-        ServerLifecycleEvents.SERVER_STOPPING.register(consumer::accept);
-    }
-
-    public static void registerTickEvent(Consumer<MinecraftServer> consumer) {
-        ServerTickEvents.START_SERVER_TICK.register(consumer::accept);
     }
 
     public static void sendPacketToPlayer(ServerPlayer player, Identifier id, FriendlyByteBuf packet) {
