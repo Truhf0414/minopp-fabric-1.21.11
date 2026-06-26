@@ -1,0 +1,23 @@
+# Build / Gradle
+.gradle/
+build/
+
+# Dev runtime (test worlds, server configs, generated assets)
+run/
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+
+# Logs & crash reports
+*.log
+crash-reports/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+
+# NOTE: gradle/wrapper/gradle-wrapper.jar is intentionally committed (public mod repo convention)

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "_G_",
+    " L "
+  ],
+  "key": {
+    "_": "minecraft:smooth_stone_slab",
+    "G": "minecraft:green_wool",
+    "L": "#minecraft:logs"
+  },
+  "result": {
+    "id": "minopp:mino_table",
+    "count": 1
+  }
+}
