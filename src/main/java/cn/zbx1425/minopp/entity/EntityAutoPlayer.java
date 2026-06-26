@@ -8,7 +8,6 @@ import cn.zbx1425.minopp.gui.AutoPlayerScreen;
 import cn.zbx1425.minopp.item.ItemHandCards;
 import cn.zbx1425.minopp.network.S2CAutoPlayerScreenPacket;
 import cn.zbx1425.minopp.platform.multiver.PlayerShim;
-import cn.zbx1425.minopp.platform.multiver.WorldShim;
 import com.google.gson.JsonParser;
 import com.mojang.authlib.GameProfile;
 import com.mojang.serialization.JsonOps;
@@ -79,7 +78,7 @@ public class EntityAutoPlayer extends LivingEntity {
     public void tick() {
         super.tick();
 
-        if (WorldShim.isClientSide(level())) {
+        if (level().isClientSide()) {
             if (!clientSkinGameProfileValidFor.equals(entityData.get(SKIN))) {
                 clientSkinGameProfileValidFor = entityData.get(SKIN);
                 try {
@@ -202,7 +201,7 @@ public class EntityAutoPlayer extends LivingEntity {
 
     @Override
     public @NotNull InteractionResult interact(Player player, InteractionHand hand) {
-        if (WorldShim.isClientSide(level())) {
+        if (level().isClientSide()) {
             if (PlayerShim.hasPermissions(player, 2) && player.isShiftKeyDown()) {
                 return InteractionResult.SUCCESS;
             } else if (getActive() && !player.isShiftKeyDown()) {

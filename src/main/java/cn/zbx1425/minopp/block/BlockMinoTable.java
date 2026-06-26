@@ -12,7 +12,6 @@ import cn.zbx1425.minopp.mixin.KeyMappingAccessor;
 import cn.zbx1425.minopp.network.C2SPlayCardPacket;
 import cn.zbx1425.minopp.platform.GroupedBlock;
 import cn.zbx1425.minopp.platform.multiver.PlayerShim;
-import cn.zbx1425.minopp.platform.multiver.WorldShim;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -69,7 +68,7 @@ public class BlockMinoTable extends GroupedBlock implements EntityBlock {
 
     @Override
     protected @NotNull InteractionResult useItemOn(ItemStack itemStack, BlockState blockState, Level level, BlockPos blockPos, Player player, InteractionHand interactionHand, BlockHitResult blockHitResult) {
-        if (WorldShim.isClientSide(level) && itemStack.is(Mino.ITEM_HAND_CARDS.get())) {
+        if (level.isClientSide() && itemStack.is(Mino.ITEM_HAND_CARDS.get())) {
             BlockPos corePos = getCore(blockState, blockPos);
             ItemHandCards.CardGameBindingComponent gameBinding = itemStack.get(Mino.DATA_COMPONENT_TYPE_CARD_GAME_BINDING.get());
             int handIndex = itemStack.getOrDefault(Mino.DATA_COMPONENT_TYPE_CLIENT_HAND_INDEX.get(), 0);
@@ -168,7 +167,7 @@ public class BlockMinoTable extends GroupedBlock implements EntityBlock {
                 PlayerShim.sendSystemMessage(player, Component.translatable("game.minopp.play.table_in_demo"));
                 return InteractionResult.FAIL;
             }
-            if (WorldShim.isClientSide(level)) {
+            if (level.isClientSide()) {
                 Client.openSeatControlScreen(corePos);
                 return InteractionResult.SUCCESS;
             }
@@ -199,7 +198,7 @@ public class BlockMinoTable extends GroupedBlock implements EntityBlock {
     @Override
     public void setPlacedBy(Level level, BlockPos blockPos, BlockState blockState, @Nullable LivingEntity livingEntity, ItemStack itemStack) {
         super.setPlacedBy(level, blockPos, blockState, livingEntity, itemStack);
-        if (!WorldShim.isClientSide(level)) {
+        if (!level.isClientSide()) {
             for (int i = 1; i < 4; i++) {
                 TablePartType thisPart = TablePartType.values()[i];
                 BlockPos thisPartPos = blockPos.offset(thisPart.xOff, 0, thisPart.zOff);
@@ -223,7 +222,7 @@ public class BlockMinoTable extends GroupedBlock implements EntityBlock {
 
     @Override
     public @NotNull BlockState playerWillDestroy(Level level, BlockPos blockPos, BlockState blockState, Player player) {
-        if (!WorldShim.isClientSide(level) && player.isCreative()) {
+        if (!level.isClientSide() && player.isCreative()) {
             BlockPos firstPartPos = getCore(blockState, blockPos);
             for (int i = 0; i < 4; i++) {
                 TablePartType thisPart = TablePartType.values()[i];
