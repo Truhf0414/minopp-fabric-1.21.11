@@ -1,5 +1,4 @@
 package cn.zbx1425.minopp.fabric.platform;
-//? if fabric {
 
 
 import cn.zbx1425.minopp.platform.ServerPlatform;
@@ -36,9 +35,7 @@ public class CompatPacketRegistry {
     public void commitCommon() {
         for (Map.Entry<Identifier, CompatPacket> packetEntry : packets.entrySet()) {
             CompatPacket packet = packetEntry.getValue();
-            //~ if >=26.1 'playC2S' -> 'serverboundPlay'
             PayloadTypeRegistry.playC2S().register(packet.TYPE, packet.STREAM_CODEC);
-            //~ if >=26.1 'playS2C' -> 'clientboundPlay'
             PayloadTypeRegistry.playS2C().register(packet.TYPE, packet.STREAM_CODEC);
         }
         for (Map.Entry<Identifier, ServerPlatform.C2SPacketHandler> packetC2S : packetsC2S.entrySet()) {
@@ -70,5 +67,3 @@ public class CompatPacketRegistry {
         ClientPlayNetworking.send(packet.new Payload(payload));
     }
 }
-
-//? }

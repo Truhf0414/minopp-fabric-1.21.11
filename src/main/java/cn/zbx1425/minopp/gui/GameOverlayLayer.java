@@ -27,25 +27,10 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import org.jspecify.annotations.NonNull;
 
-//? if <26.1 {
-/*import net.minecraft.client.gui.LayeredDraw;
-import net.minecraft.util.FastColor;
-*///? } else {
-
-//? }
-
-//? if neoforge
-//import net.neoforged.neoforge.client.gui.GuiLayer;
-
 import java.util.ListIterator;
 import java.util.Objects;
 import java.util.Random;
 
-//? if <26.1
-//public class GameOverlayLayer implements LayeredDraw.Layer {
-//? if >=26.1 && neoforge
-//public class GameOverlayLayer implements GuiLayer {
-//? if >=26.1 && !neoforge
 public class GameOverlayLayer {
 
     // Some animation related stuff
@@ -53,8 +38,6 @@ public class GameOverlayLayer {
     private double zoomAnimationTarget = 0;
     private final Long2FloatArrayMap handCardCurrentXOff = new Long2FloatArrayMap();
 
-    //? if <26.1
-    //@Override
     public void render(@NonNull GuiGraphics guiGraphics, @NonNull DeltaTracker deltaTracker) {
         LocalPlayer player = Minecraft.getInstance().player;
         BlockPos handCardGamePos = ItemHandCards.getHandCardGamePos(player);
@@ -263,9 +246,6 @@ public class GameOverlayLayer {
         }
         handCardCurrentXOff.keySet().removeIf(hash -> !handCardHashes.contains(hash));
 
-        //? if <26.1
-        //RenderSystem.enableBlend();
-
         int width = Minecraft.getInstance().getWindow().getGuiScaledWidth();
         int height = Minecraft.getInstance().getWindow().getGuiScaledHeight();
         int handSize = realPlayer.hand.size();
@@ -329,9 +309,6 @@ public class GameOverlayLayer {
             g.fill(x, y, x + CARD_WIDTH, y + CARD_HEIGHT, 0x222222 | ((int)(0xFF * shadowAlpha) << 24));
             GuiShim.popMatrix(g);
         }
-
-        //? if <26.1
-        //RenderSystem.disableBlend();
         
         return true;
     }

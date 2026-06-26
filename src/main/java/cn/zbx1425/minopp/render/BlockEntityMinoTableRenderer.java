@@ -31,66 +31,34 @@ import org.joml.Matrix4f;
 import org.jspecify.annotations.NonNull;
 import org.jspecify.annotations.Nullable;
 
-//? if <26.1 {
-/*import net.minecraft.client.renderer.entity.ItemRenderer;
-import net.minecraft.client.resources.model.BakedModel;
-*///? } else {
-
-//? }
-
 import java.util.Random;
 
-//? if <26.1
-//public class BlockEntityMinoTableRenderer implements BlockEntityRenderer<BlockEntityMinoTable> {
-//? if >=26.1
 public class BlockEntityMinoTableRenderer implements BlockEntityRenderer<BlockEntityMinoTable, BlockEntityMinoTableRenderer.MinoTableRenderState> {
 
-//? if <26.1 {
-    /*private ItemRenderer itemRenderer;
-
-    public BlockEntityMinoTableRenderer(BlockEntityRendererProvider.Context ctx) {
-        itemRenderer = ctx.getItemRenderer();
-    }
-*///? } else {
     private final ItemModelResolver itemRenderer;
 
     public BlockEntityMinoTableRenderer(BlockEntityRendererProvider.Context ctx) {
         itemRenderer = ctx.itemModelResolver();
     }
-//? }
 
 
     @Override
-//? if <26.1 {
-    /*public void render(BlockEntityMinoTable blockEntity, float f, PoseStack poseStack,
-                       MultiBufferSource multiBufferSource, int packedLight, int packedOverlay) {
-*///? } else {
     public void submit(BlockEntityMinoTableRenderer.@NonNull MinoTableRenderState state, @NonNull PoseStack poseStack,
                        @NonNull SubmitNodeCollector sink, @NonNull CameraRenderState camera) {
-//? }
-        //? if >=26.1
         BlockEntityMinoTable blockEntity = state.blockEntity;
 
         if (blockEntity.game == null) return;
 
         if (BlockMinoTable.Client.isCursorHittingPile()) {
-        //? if <26.1 {
-            /*LevelRenderer.renderLineBox(poseStack, multiBufferSource.getBuffer(RenderType.lines()),
-                    BlockMinoTable.Client.getPileAabb(blockEntity), 1, 1, 0, 1f);
-        *///? } else {
               sink.submitCustomGeometry(poseStack, RenderTypes.lines(), (pose, buffer) -> {
                   RenderShim.renderLineBox(pose, buffer,
                       BlockMinoTable.Client.getPileAabb(blockEntity), 1, 1, 0, 1f);
               });
-        //? }
         }
 
         poseStack.pushPose();
         poseStack.translate(0.5, 0.94, 0.5);
         poseStack.scale(0.4f, 0.3f, 0.4f);
-        //? if <26.1
-        //BakedModel model = itemRenderer.getModel(HAND_CARDS_MODEL_PLACEHOLDER.get(), null, null, 0);
-
         poseStack.mulPose(Axis.XP.rotation(-(float)Math.PI / 2));
         Random deckRandom = new Random(1);
         for (int ci = 0; ci < Math.ceil(blockEntity.game.deck.size() / 5f); ci++) {
@@ -101,26 +69,16 @@ public class BlockEntityMinoTableRenderer implements BlockEntityRenderer<BlockEn
                 poseStack.translate(0, 0, -(0.5f - topCardThicknessRatio / 2) / 16f);
                 poseStack.scale(1, 1, topCardThicknessRatio);
             }
-            //? if <26.1 {
-            /*itemRenderer.render(HAND_CARDS_MODEL_PLACEHOLDER.get(), ItemDisplayContext.FIXED, false,
-                    poseStack, multiBufferSource, packedLight, packedOverlay, model);
-            *///? } else if >=26.1 {
             state.cardItemModel.submit(poseStack, sink, state.lightCoords, OverlayTexture.NO_OVERLAY, 0);
-            //? }
             poseStack.popPose();
         }
         poseStack.popPose();
 
-        //? if <26.1 {
-        /*VertexConsumer vertexConsumer = multiBufferSource.getBuffer(RenderType.entityCutout(Mino.id("textures/gui/deck.png")));
-        PoseStack matrices = poseStack;
-        *///? } else if >=26.1 {
         int packedLight = state.lightCoords;
         sink.submitCustomGeometry(poseStack, RenderTypes.entityCutout(Mino.id("textures/gui/deck.png")),
             (pose, vertexConsumer) -> {
                 PoseStack matrices = new PoseStack();
                 matrices.mulPose(pose.pose());
-        //? }
 
 
         matrices.pushPose();
@@ -182,13 +140,6 @@ public class BlockEntityMinoTableRenderer implements BlockEntityRenderer<BlockEn
                     ? card.getDisplayName().copy().append(Component.translatable("game.minopp.card.suit." + card.getEquivSuit().name().toLowerCase()))
                     : card.getDisplayName();
                 float h = (float)(-font.width(component) / 2);
-                //? if <26.1 {
-                /*font.drawInBatch(component, h, 0, 553648127, false, matrix4f, multiBufferSource, Font.DisplayMode.SEE_THROUGH, k, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(component, h, 0, -1, false, matrix4f, multiBufferSource, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
-                matrices.mulPose(Axis.YP.rotation((float)Math.PI));
-                font.drawInBatch(component, h, 0, 553648127, false, matrix4f, multiBufferSource, Font.DisplayMode.SEE_THROUGH, k, LightTexture.FULL_BRIGHT);
-                font.drawInBatch(component, h, 0, -1, false, matrix4f, multiBufferSource, Font.DisplayMode.NORMAL, 0, LightTexture.FULL_BRIGHT);
-                *///? } else {
 
                 //public void drawInBatch(final String str, final float x, final float y, final int color, final boolean dropShadow,
                 // final Matrix4fc pose, final MultiBufferSource bufferSource, final DisplayMode displayMode,
@@ -207,20 +158,15 @@ public class BlockEntityMinoTableRenderer implements BlockEntityRenderer<BlockEn
                     553648127, k, 0);
                 sink.submitText(matrices, h, 0, cardText, false, Font.DisplayMode.NORMAL, LightTexture.FULL_BRIGHT,
                     -1, 0, 0);
-                //? }
             }
             matrices.popPose();
         }
         matrices.popPose();
 
-        //? if >=26.1
         });
     }
 
     @Override
-    //? if <26.1
-    //public boolean shouldRenderOffScreen(BlockEntityMinoTable blockEntity) {
-    //? if >=26.1
     public boolean shouldRenderOffScreen() {
         return true;
     }
@@ -231,8 +177,6 @@ public class BlockEntityMinoTableRenderer implements BlockEntityRenderer<BlockEn
         stack.set(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true);
         return stack;
     });
-
-    //? if >=26.1 {
 
     @Override
     public @NonNull MinoTableRenderState createRenderState() {
@@ -258,5 +202,4 @@ public class BlockEntityMinoTableRenderer implements BlockEntityRenderer<BlockEn
 
         public ItemStackRenderState cardItemModel = new ItemStackRenderState();
     }
-//? }
 }
