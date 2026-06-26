@@ -22,7 +22,6 @@ public class GroupedBlock extends Block {
     ) {
         super(properties.apply(
             Properties.of()
-                //? if >=1.21.2
                 .setId(ResourceKey.create(Registries.BLOCK, id))
         ));
         this.id = id;

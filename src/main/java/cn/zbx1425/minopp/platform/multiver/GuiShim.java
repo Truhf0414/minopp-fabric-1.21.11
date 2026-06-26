@@ -43,13 +43,7 @@ public class GuiShim {
         guiGraphics.pose().popMatrix();
     }
 
-//? if >=26.1 {
     public static FontDescription getMiencraftyFontDesc() {
         return new FontDescription.Resource(Identifier.withDefaultNamespace("include/default"));
     }
-//? } else {
-    /*public static Identifier getDefaultFontDesc() {
-        return new Identifier.withDefaultNamespace("include/default");
-    }
-*///? }
 }

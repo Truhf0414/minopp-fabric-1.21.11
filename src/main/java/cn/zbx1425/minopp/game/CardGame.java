@@ -10,12 +10,8 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.component.FireworkExplosion;
 
-//? if >=26.1 {
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-//? } else {
-/*import cn.zbx1425.minopp.platform.multiver.ValueOutput;
- *///? }
 
 import java.util.*;
 import java.util.stream.Collectors;

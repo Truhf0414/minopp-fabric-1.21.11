@@ -3,12 +3,8 @@ package cn.zbx1425.minopp.game;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.MinecraftServer;
 
-//? if >=26.1 {
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-//? } else {
-/*import cn.zbx1425.minopp.platform.multiver.ValueOutput;
- *///? }
 
 import java.util.Random;
 

@@ -57,9 +57,6 @@ public final class Mino {
 
     public static final RegistryObject<EntityType<EntityAutoPlayer>> ENTITY_AUTO_PLAYER = new RegistryObject<>(() ->
             EntityType.Builder.of(EntityAutoPlayer::new, MobCategory.CREATURE).sized(0.6f, 1.8f)
-                //? if <26.1
-                //.build("mino_auto_player")
-                //? if >=26.1
                 .build(ResourceKey.create(Registries.ENTITY_TYPE, id("mino_auto_player")))
     );
 

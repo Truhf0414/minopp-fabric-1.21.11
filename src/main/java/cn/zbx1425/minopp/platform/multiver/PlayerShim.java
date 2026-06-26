@@ -17,34 +17,18 @@ public class PlayerShim {
     }
 
     public static UUID getGameProfileId(Player player) {
-        //? if >=26.1 {
         return player.getGameProfile().id();
-        //? } else {
-        /*return player.getGameProfile().getId();
-         *///? }
     }
 
     public static String getGameProfileName(Player player) {
-        //? if >=26.1 {
         return player.getGameProfile().name();
-        //? } else {
-        /*return player.getGameProfile().getName();
-         *///? }
     }
 
     public static boolean hasPermissions(Player player, int level) {
-        //? if >=26.1 {
         return player.permissions().hasPermission(new Permission.HasCommandLevel(PermissionLevel.byId(level)));
-        //? } else {
-        /*return player.hasPermissions(level);
-         *///? }
     }
 
     public static ServerLevel serverLevel(ServerPlayer player) {
-        //? if >=26.1 {
         return player.level();
-        //? } else {
-        /*return player.serverLevel();
-         *///? }
     }
 }

@@ -6,13 +6,9 @@ import com.mojang.serialization.JsonOps;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 
-//? if >=26.1 {
 import net.minecraft.network.chat.ComponentSerialization;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-//? } else {
-/*import cn.zbx1425.minopp.platform.multiver.ValueOutput;
- *///? }
 
 
 public record ActionMessage(Type type, Component message) {

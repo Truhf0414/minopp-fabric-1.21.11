@@ -7,12 +7,8 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.util.Util;
 import net.minecraft.world.entity.player.Player;
 
-//? if >=26.1 {
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-//? } else {
-/*import cn.zbx1425.minopp.platform.multiver.ValueOutput;
-*///? }
 
 import java.util.ArrayList;
 import java.util.List;

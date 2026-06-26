@@ -21,7 +21,6 @@ public class GroupedItem extends Item {
             ) {
         super(properties.apply(
             new Properties()
-            //? if >=1.21.2
                 .setId(ResourceKey.create(Registries.ITEM, id))
         ));
         this.id = id;

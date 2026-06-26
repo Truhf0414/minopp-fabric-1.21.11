@@ -49,9 +49,6 @@ public class RenderShim {
             PoseStack.Pose pose, float x, float y, float z,
             float r, float g, float b, float a,
             float nx, float ny, float nz) {
-        //? if <26.1
-        //buffer.addVertex(pose, x, y, z).setColor(r, g, b, a).setNormal(pose, nx, ny, nz);
-        //? if >=26.1
         buffer.addVertex(pose, x, y, z).setColor(r, g, b, a).setNormal(pose, nx, ny, nz).setLineWidth(4.0f);
     }
 }

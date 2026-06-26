@@ -5,11 +5,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.storage.ValueInput;
 import org.jetbrains.annotations.NotNull;
 
-//? if >=26.1 {
 import net.minecraft.world.level.storage.ValueOutput;
-//? } else {
-/*import cn.zbx1425.minopp.platform.multiver.ValueOutput;
- *///? }
 
 import java.util.ArrayList;
 import java.util.List;

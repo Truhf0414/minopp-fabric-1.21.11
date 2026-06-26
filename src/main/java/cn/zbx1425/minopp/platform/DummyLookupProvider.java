@@ -10,9 +10,6 @@ import java.util.stream.Stream;
 public class DummyLookupProvider implements HolderLookup.Provider {
 
     @Override
-    //? if <26.1
-    //public Stream<ResourceKey<? extends Registry<?>>> listRegistries() {
-    //? if >=26.1
     public Stream<ResourceKey<? extends Registry<?>>> listRegistryKeys() {
         return Stream.empty();
     }
