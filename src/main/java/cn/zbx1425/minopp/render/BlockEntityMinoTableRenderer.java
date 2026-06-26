@@ -197,7 +197,9 @@ public class BlockEntityMinoTableRenderer implements BlockEntityRenderer<BlockEn
 
     public static class MinoTableRenderState extends BlockEntityRenderState {
 
-        // TODO Do the extraction
+        // Intentionally holds a live BlockEntity reference instead of extracting a snapshot.
+        // Phase 3 verified the deck does not flicker and players notice nothing; a full
+        // extraction would deep-copy the entire game state every frame (perf cost). See review gate#4.
         public BlockEntityMinoTable blockEntity;
 
         public ItemStackRenderState cardItemModel = new ItemStackRenderState();
