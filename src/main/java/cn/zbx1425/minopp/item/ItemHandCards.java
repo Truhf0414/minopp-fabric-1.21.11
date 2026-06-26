@@ -7,6 +7,8 @@ import cn.zbx1425.minopp.game.CardPlayer;
 import cn.zbx1425.minopp.gui.TurnDeadMan;
 import cn.zbx1425.minopp.platform.GroupedItem;
 import cn.zbx1425.minopp.platform.multiver.PlayerShim;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import io.netty.buffer.ByteBuf;
@@ -84,7 +86,8 @@ public class ItemHandCards extends GroupedItem {
         CardGameBindingComponent binding = stack.get(Mino.DATA_COMPONENT_TYPE_CARD_GAME_BINDING.get());
         if (binding != null) {
             builder.accept(Component.literal("Table: " + binding.tablePos().toShortString()));
-            if (!Client.isClientPlayerOwnerOfHandCard(binding)) { // TODO this doesn't seem good, some mod might try to call it from server
+            if (FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT
+                    && !Client.isClientPlayerOwnerOfHandCard(binding)) {
                 builder.accept(Component.literal("NOT YOUR CARD!").withStyle(ChatFormatting.RED));
             }
         }
