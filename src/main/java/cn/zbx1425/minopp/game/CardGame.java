@@ -233,7 +233,6 @@ public class CardGame {
         CardPlayer currentPlayer = players.get(currentPlayerIndex);
         currentPlayer.hasShoutedMino = false;
         report.sound(Mino.id("game.turn_notice"), 500, currentPlayer);
-        // report.effect(new PlayerGlowEffectEvent(0, currentPlayer.uuid, 10));
     }
 
     public CardPlayer deAmputate(CardPlayer playerWithoutHand) {

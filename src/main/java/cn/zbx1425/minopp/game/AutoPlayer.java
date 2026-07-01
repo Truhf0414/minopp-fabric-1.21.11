@@ -10,8 +10,6 @@ import java.util.Random;
 
 public class AutoPlayer {
 
-    // Better Abstraction?
-
     public boolean aiNoWin = false;
     public boolean aiNoPlayerDraw = false;
     public float aiForgetChance = 0.2f;

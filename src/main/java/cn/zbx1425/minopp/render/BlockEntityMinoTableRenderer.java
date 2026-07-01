@@ -124,14 +124,10 @@ public class BlockEntityMinoTableRenderer implements BlockEntityRenderer<BlockEn
                     .setUv(cardU + cardUW, cardV).setOverlay(OverlayTexture.NO_OVERLAY).setLight(packedLight).setColor(color);
 
             if (ci == blockEntity.game.discardDeck.size()) {
-//                itemRenderer.render(HAND_CARDS_ENCHANTED_MODEL_PLACEHOLDER.get(), ItemDisplayContext.FIXED, false,
-//                        poseStack, multiBufferSource, i, j, model);
                 Font font = Minecraft.getInstance().font;
                 matrices.mulPose(Axis.XP.rotation((float)Math.PI / 2));
                 matrices.translate(0, 1f, 0);
 
-//                poseStack.translate(0, 0, 1f);
-//                poseStack.mulPose(Minecraft.getInstance().getEntityRenderDispatcher().cameraOrientation());
                 matrices.scale(0.03F, -0.03F, 0.03F);
                 Matrix4f matrix4f = matrices.last().pose();
                 float g = Minecraft.getInstance().options.getBackgroundOpacity(0.25F);
