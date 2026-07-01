@@ -10,7 +10,7 @@
 	"contact": {
 		"sources": "https://github.com/zbx1425/minopp"
 	},
-	"license": "All Rights Reserved",
+	"license": "MIT",
 	"icon": "minopp.png",
 	"environment": "*",
 	"entrypoints": {
