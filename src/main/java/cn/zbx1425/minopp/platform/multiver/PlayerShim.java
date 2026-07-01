@@ -12,6 +12,8 @@ import java.util.UUID;
 
 public class PlayerShim {
 
+    // Named after upstream's Player.sendSystemMessage, which Minecraft 1.21.11 removed.
+    // Intentionally shows on the action bar rather than system chat (see PORTING.md).
     public static void sendSystemMessage(Player player, Component message) {
         player.displayClientMessage(message, true);
     }

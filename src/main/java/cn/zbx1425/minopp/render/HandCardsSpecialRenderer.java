@@ -54,7 +54,7 @@ public class HandCardsSpecialRenderer implements SpecialModelRenderer<HandCardsS
             if (state.isOwnerCurrentlyInTurn) {
                 poseStack.pushPose();
                 poseStack.translate(0, 0.3, 0.3);
-                // Transform must be somehow messed up but it works so I'm not going to fix it
+                // Empirically-tuned transform — the rotation below is load-bearing; verify visually before changing.
                 poseStack.mulPose(Axis.XP.rotationDegrees(-110f));
                 sink.submitCustomGeometry(poseStack, RenderTypes.entityCutout(Mino.id("textures/gui/arrow_down.png")),
                     (pose, buffer) -> {

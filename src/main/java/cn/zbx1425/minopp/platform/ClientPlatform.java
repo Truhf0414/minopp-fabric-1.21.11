@@ -6,8 +6,6 @@ import net.minecraft.resources.Identifier;
 import cn.zbx1425.minopp.fabric.MinoFabric;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class ClientPlatform {
