@@ -20,4 +20,7 @@ crash-reports/
 .DS_Store
 Thumbs.db
 
+# Internal port notes — kept local, not published
+_notes/
+
 # NOTE: gradle/wrapper/gradle-wrapper.jar is intentionally committed (public mod repo convention)
