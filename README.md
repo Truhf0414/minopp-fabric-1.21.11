@@ -25,20 +25,33 @@ For the relationship to upstream, intentional deviations, and known trade-offs, 
 
 ### Features
 
-- Play UNO with other players — or with automated (bot) players — at an in-world table block.
+- Play UNO at an in-world table block — with other players or automated (bot) players.
 - A config screen for the bot players (powered by YACL).
 - In-game hand HUD and card interactions.
 
-### How to play
+### Controls
 
-- Sit at a table block and play against other players or bots. Each player starts with a
-  hand of **7 cards**.
-- **Right-click a draw pile** to draw or pass; **right-click elsewhere** to play a card.
-- You can play a card identical to the last one to steal the turn, and `+2` / `+4` cards
-  can be stacked.
-- When you are down to one card, remember to call out — hold `Ctrl` while playing the card,
-  or type the callout in chat. Miss it and you draw a **2-card penalty**.
-- Physically bumping into a player challenges them if they forgot their callout.
+- Right-click a draw pile to draw a card or to pass; right-click elsewhere to play a card.
+- Hold `Ctrl` while playing a card to call **Mino**. Do this while you still have two cards
+  in hand — after playing, you'll be down to one.
+- If you forget to call Mino while playing, you can type `Mino` in chat to make up for it.
+- To challenge someone for not calling Mino, just **hit them**.
+- If the table is destroyed while you still hold cards bound to it, right-click the sky with
+  the cards in hand to unbind them.
+
+### Rules
+
+Mino++ implements the following rule variant:
+
+- Starting hand: **7** cards.
+- The game opens with a non-action card.
+- You **may** steal a turn by playing a card identical to the previous one.
+- You **may** stack +2 and +4.
+- You **may not** play a wild +4 while you still have another playable card in hand. It is
+  set as an illegal play, so there is no challenge rule for it.
+- You **may** play an action card as your final card.
+- Calling Mino while you have more than 1 card in hand incurs a 2-card penalty draw.
+- After drawing, you may still play another card from your hand.
 
 ### Requirements
 
@@ -93,17 +106,31 @@ The built jar is produced under `build/libs/`.
 
 ### 功能
 
-- 在世界中的桌子方塊上，與其他玩家——或自動（bot）玩家——一起玩 UNO。
+- 在世界中的桌子方塊上玩 UNO——可與其他玩家或自動（bot）玩家對戰。
 - bot 玩家的設定畫面（由 YACL 提供）。
 - 遊戲內手牌 HUD 與卡牌互動。
 
-### 怎麼玩
+### 操作
 
-- 坐到桌子方塊旁，與其他玩家或 bot 對戰。每位玩家初始手牌為 **7 張**。
-- **右鍵牌堆**抽牌或 pass；**右鍵其他地方**出牌。
-- 可以出一張與前一張完全相同的牌來搶過回合，`+2` / `+4` 可以疊加。
-- 當你只剩一張牌時，記得喊牌——出牌時按住 `Ctrl`，或在聊天欄打出喊牌。漏喊會**罰抽 2 張**。
-- 用身體撞向漏喊的玩家即可對他發起質疑（challenge）。
+- 右鍵牌堆抽牌或表示不出，右鍵其他區域出牌。
+- 出牌同時按住 `Ctrl` 以喊 **Mino**。這個操作應該在手中還有兩張牌時進行，因為出牌之後就只剩
+  一張了。
+- 如果忘記了在出牌同時喊 Mino，可以在聊天欄打出 `Mino` 補上。
+- 要質疑某人沒有喊 Mino，直接**毆打對方**即可。
+- 如果牌桌打掉了但還持有綁定到牌桌的手牌，手持右鍵天空解綁。
+
+### 規則
+
+Mino++ 所實現的規則變種如下：
+
+- 初始手牌數為 **7** 張。
+- 以非功能牌開局。
+- **可以** 用與前張牌完全一樣的牌搶過回合。
+- **可以** 疊加 +2 和 +4。
+- **禁止** 在手牌中有其他可出的牌時出轉色 +4。設定為不允許出牌，因此也沒有質疑規則。
+- **可以** 以功能牌作為最後一張牌打出。
+- 在手牌數多於 1 張時喊 Mino 罰抽 2 張牌。
+- 抽牌之後也可以出手中其他的牌。
 
 ### 需求
 
