@@ -5,6 +5,9 @@ build/
 # Dev runtime (test worlds, server configs, generated assets)
 run/
 
+# Raw screenshot / recording staging — published copies live in docs/
+screenshot/
+
 # IDE
 .idea/
 *.iml

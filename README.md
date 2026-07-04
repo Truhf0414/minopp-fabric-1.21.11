@@ -2,6 +2,12 @@
 
 > Play UNO in Minecraft.
 
+https://github.com/user-attachments/assets/d8e8de47-bcf4-4914-93f7-07fd6a1a03cb
+
+![Mino++ gameplay — an in-world UNO table with human and bot players](docs/gameplay-table.png)
+
+![Your turn — the in-game hand HUD and the card-play prompt](docs/gameplay-turn.png)
+
 A single-version **Fabric / Minecraft 1.21.11** port of
 [Zbx1425/minopp](https://github.com/zbx1425/minopp) ("Mino++"), distributed under the
 original MIT license.
